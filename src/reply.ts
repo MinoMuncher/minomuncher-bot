@@ -103,7 +103,6 @@ export async function reply(message: Message, content: string[]) {
     }
 
     const [stats, failedFiles, failedReplays] = await parseReplayData(replayIDs, replays, editCallback)
-    await initialMessage.delete()
     const files = [];
     const graphGroups: [string, GraphType[]][] = [
         ["deathAndKills",["deaths", "kills"]],
