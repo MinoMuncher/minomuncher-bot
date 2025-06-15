@@ -10,7 +10,7 @@ export function renderSvgData(svg: string, scale: number = 1) {
         background: Theme.defaultScheme.b_med,
         fitTo: { mode: "width", value: 500 * scale },
         font: {
-            fontFiles: ['./src/Martel-Bold.ttf'], // Load custom fonts.
+            fontFiles: ['./src/assets/Martel-Bold.ttf'], // Load custom fonts.
             loadSystemFonts: false, // It will be faster to disable loading system fonts.
             defaultFontFamily: 'Martel Bold',
         },
