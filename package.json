@@ -1,0 +1,21 @@
+{
+  "name": "minomuncher-bot",
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/jsdom": "^21.1.7",
+    "@types/yargs": "^17.0.33"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "discord.js": "^14.19.3",
+    "jsdom": "^26.1.0",
+    "minomuncher-core": "^0.0.1",
+    "yargs": "^18.0.0"
+  }
+}
