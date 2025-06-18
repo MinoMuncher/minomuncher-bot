@@ -1,6 +1,6 @@
 import { parseReplay, calculateCumulativeStats, combineStats, type GameStats, type PlayerCumulativeStats, type PlayerGameStats } from 'minomuncher-core'
 
-export async function parseReplayData(replayIDs: Map<string, string[]>, replayStrings: [string, string][], cb: (msg: string) => Promise<void>): Promise<[PlayerCumulativeStats, string[], string[]]> {
+export async function parseReplayData(discordID: string, replayIDs: Map<string, string[]>, replayStrings: [string, string][], cb: (msg: string) => Promise<void>): Promise<[PlayerCumulativeStats, string[], string[]]> {
   let rr: PlayerGameStats = {}
   const goodFiles = []
   const failedFiles = []
@@ -21,7 +21,7 @@ export async function parseReplayData(replayIDs: Map<string, string[]>, replaySt
       await cb(`error parsing replay \`${replayID}\``)
     }
   }
-  if(goodFiles.length > 0){
+  if (goodFiles.length > 0) {
     await cb(`parsed ${goodFiles} attached replays`)
   }
 
@@ -31,16 +31,17 @@ export async function parseReplayData(replayIDs: Map<string, string[]>, replaySt
     let localPlayers: PlayerGameStats | undefined = undefined
 
     try {
-      const streamResponse = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/replay/${replayID}`)
+      const streamResponse = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/replay/${replayID}`,
+        { headers: { supporter: discordID } })
       localPlayers = await streamResponse.json() as any;
     } catch (_) {
       await cb(`error fetching replay \`${replayID}\``)
     }
 
     try {
-      if (!localPlayers || Object.keys(localPlayers).length===0) throw Error()
+      if (!localPlayers || Object.keys(localPlayers).length === 0) throw Error()
       for (const id in localPlayers) {
-        if(playerIds.length > 0 && !playerIds.includes(id)){
+        if (playerIds.length > 0 && !playerIds.includes(id)) {
           continue;
         }
         if (!(id in rr)) {

@@ -45,7 +45,31 @@ export async function reply(message: Message, content: string[]) {
 
     const replayIDs = new Map<string, string[]>();
 
-    for (const userOrReplayID of args._) {
+    const argNames: string[] = []
+    for (const arg of args._) {
+        if (typeof arg === "string") {
+            argNames.push(arg)
+        }
+    }
+    if (argNames.length == 0 && message.attachments.size == 0) {
+        let name: string
+        try {
+            const res = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/discord/${message.author.id}`
+            ,{headers: {supporter: message.author.id}}
+        ).then(x=>x.json())
+            if (res.success && res.data.users.length > 0 && "username" in res.data.users[0]) {
+                name = String(res.data.users[0].username)
+            } else {
+                throw Error()
+            }
+        }
+        catch (e) {
+            name = message.member?.nickname ?? message.author.displayName
+        }
+        argNames.push(name)
+    }
+
+    for (const userOrReplayID of argNames) {
         if (typeof userOrReplayID !== "string") continue;
         if (userOrReplayID.startsWith("https://tetr.io/#R:")) {
             const replayID = userOrReplayID.split("https://tetr.io/#R:")[1];
@@ -58,8 +82,8 @@ export async function reply(message: Message, content: string[]) {
             continue
         } else {
             try {
-                const userId = await getUserId(userOrReplayID);
-                for (const replayID of await getLeagueReplayIds([userOrReplayID], args.games, editCallback)) {
+                const userId = await getUserId(message.author.id, userOrReplayID);
+                for (const replayID of await getLeagueReplayIds(message.author.id, [userOrReplayID], args.games, editCallback)) {
                     const ref = replayIDs.get(replayID)
                     if (ref) {
                         ref.push(userId);
@@ -97,43 +121,43 @@ export async function reply(message: Message, content: string[]) {
         }
     }
 
-    if(replayIDs.size == 0 && replays.length == 0){
+    if (replayIDs.size == 0 && replays.length == 0) {
         await editCallback("no replays to parse!")
         return
     }
 
-    const [stats, failedFiles, failedReplays] = await parseReplayData(replayIDs, replays, editCallback)
+    const [stats, failedFiles, failedReplays] = await parseReplayData(message.author.id, replayIDs, replays, editCallback)
     const files = [];
     const graphGroups: [string, GraphType[]][] = [
-        ["deathAndKills",["deaths", "kills"]],
-        ["annoyingness",["downstacking", "attack cheesiness"]],
-        ["stackedBars",["spin efficiency", "attack per line", "phase PPS", "phase APM"]],
+        ["deathAndKills", ["deaths", "kills"]],
+        ["annoyingness", ["downstacking", "attack cheesiness"]],
+        ["stackedBars", ["spin efficiency", "attack per line", "phase PPS", "phase APM"]],
     ]
 
-    for(const [groupName, graphGroup] of graphGroups){
+    for (const [groupName, graphGroup] of graphGroups) {
         const toCombine = []
         for (const graphType of graphGroup) {
             toCombine.push(graphToSvgData(graphType, stats))
         }
         const combined = combineSvgData(toCombine)
-        files.push({ attachment:renderSvgData(combined, toCombine.length), name: `${groupName}.png` })
+        files.push({ attachment: renderSvgData(combined, toCombine.length), name: `${groupName}.png` })
     }
     for (const graphType of ["clear types", "PPS distribution", "well columns", "attack recieved", "surge", "PPS"] as GraphType[]) {
         const svgData = graphToSvgData(graphType, stats)
-        files.push({ attachment:renderSvgData(svgData, 2), name: `${graphType}.png`})
+        files.push({ attachment: renderSvgData(svgData, 2), name: `${graphType}.png` })
     }
 
-    let msgContent : string
-    if(failedFiles.length==0 && failedReplays.length==0){
+    let msgContent: string
+    if (failedFiles.length == 0 && failedReplays.length == 0) {
         msgContent = "All data generated successfully!"
     }
-    else{
+    else {
         msgContent = `Some data failed to generate:
-        ${failedFiles.length>0?`Failed to parse attached replays: ${failedFiles}`:""}
-        ${failedReplays.length>0?`Failed to fetch replays: ${failedReplays}`:""}
+        ${failedFiles.length > 0 ? `Failed to parse attached replays: ${failedFiles}` : ""}
+        ${failedReplays.length > 0 ? `Failed to fetch replays: ${failedReplays}` : ""}
         `
     }
 
     files.push({ attachment: Buffer.from(JSON.stringify(stats)), name: "rawStats.json" })
-    message.reply({ files, content: msgContent }).catch(console.error);
+    initialMessage.edit({ files, content: msgContent }).catch(console.error);
 }

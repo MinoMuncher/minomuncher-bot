@@ -1,16 +1,18 @@
-export async function getLeagueReplayIds(usernames: string[], games: number, cb: (msg: string) => Promise<void>): Promise<Set<string>> {
+export async function getLeagueReplayIds(discordID: string, usernames: string[], games: number, cb: (msg: string) => Promise<void>): Promise<Set<string>> {
   let replayIds = new Set<string>()
   for (const username of usernames) {
     let ids: string[]
     let streamResponse
     try {
-      streamResponse = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/league/${username.toLowerCase()}`)
+      streamResponse = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/league/${username.toLowerCase()}`, {
+        headers: { supporter: discordID }
+      })
     }
     catch (e) {
       await cb(`error connecting to minomuncher server`)
       throw e
     }
-    try{
+    try {
       const streamData: any = await streamResponse.json();
 
       ids = streamData.data.entries.filter((x: any) => x.stub === false).map((record: any) => record.replayid)
@@ -25,7 +27,7 @@ export async function getLeagueReplayIds(usernames: string[], games: number, cb:
     for (const id of ids) {
       replayIds.add(id)
       added += 1;
-      if(added >= games){
+      if (added >= games) {
         break
       }
     }
@@ -40,16 +42,18 @@ export async function getLeagueReplayIds(usernames: string[], games: number, cb:
 }
 
 
-export async function getUserId(username: string) {
+export async function getUserId(discordID: string, username: string) {
   let js: any = {}
   try {
-    const resp = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/user/${username}`)
+    const resp = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/user/${username}`, {
+      headers: { supporter: discordID }
+    })
     js = await resp.json() as any
   }
   catch (e) {
     throw Error("unable to reach minomuncher server")
   }
-  try{
+  try {
     const id = js["data"]["_id"]
     if (typeof id === "string") {
       if (id.length > 0) {

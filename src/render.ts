@@ -6,29 +6,29 @@ import { Resvg, type ResvgRenderOptions } from "@resvg/resvg-js"
 
 
 export function renderSvgData(svg: string, scale: number = 1) {
-    const opts: ResvgRenderOptions = {
-        background: Theme.defaultScheme.b_med,
-        fitTo: { mode: "width", value: 500 * scale },
-        font: {
-            fontFiles: ['./src/assets/Martel-Bold.ttf'], // Load custom fonts.
-            loadSystemFonts: false, // It will be faster to disable loading system fonts.
-            defaultFontFamily: 'Martel Bold',
-        },
-    }
-    const resvg = new Resvg(svg, opts)
-    const pngData = resvg.render()
-    const pngBuffer = pngData.asPng()
-    return pngBuffer
+  const opts: ResvgRenderOptions = {
+    background: Theme.defaultScheme.b_med,
+    fitTo: { mode: "width", value: 500 * scale },
+    font: {
+      fontFiles: ['./src/assets/Martel-Bold.ttf'], // Load custom fonts.
+      loadSystemFonts: false, // It will be faster to disable loading system fonts.
+      defaultFontFamily: 'Martel Bold',
+    },
+  }
+  const resvg = new Resvg(svg, opts)
+  const pngData = resvg.render()
+  const pngBuffer = pngData.asPng()
+  return pngBuffer
 }
 
 
 export function graphToSvgData(graphType: GraphType, stats: PlayerCumulativeStats) {
-    const dom = new JSDOM(`<!DOCTYPE html><html><body><div id="rootDiv"></div></body></html>`, {
-        contentType: 'image/svg+xml',
-    })
-    const root = dom.window.document.getElementById("rootDiv")!
-    createGraph(root, graphType, stats)
-    return dom.window.document.getElementById("rootDiv")!.innerHTML
+  const dom = new JSDOM(`<!DOCTYPE html><html><body><div id="rootDiv"></div></body></html>`, {
+    contentType: 'image/svg+xml',
+  })
+  const root = dom.window.document.getElementById("rootDiv")!
+  createGraph(root, graphType, stats)
+  return dom.window.document.getElementById("rootDiv")!.innerHTML
 }
 
 export function combineSvgData(svgData: string[]) {
