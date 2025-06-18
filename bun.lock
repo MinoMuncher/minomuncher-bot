@@ -7,7 +7,7 @@
         "@resvg/resvg-js": "^2.6.2",
         "discord.js": "^14.19.3",
         "jsdom": "^26.1.0",
-        "minomuncher-core": "^0.0.1",
+        "minomuncher-core": "^0.0.4",
         "yargs": "^18.0.0",
       },
       "devDependencies": {
@@ -223,7 +223,7 @@
 
     "magic-bytes.js": ["magic-bytes.js@1.12.1", "", {}, "sha512-ThQLOhN86ZkJ7qemtVRGYM+gRgR8GEXNli9H/PMvpnZsE44Xfh3wx9kGJaldg314v85m+bFW6WBMaVHJc/c3zA=="],
 
-    "minomuncher-core": ["minomuncher-core@0.0.1", "", { "dependencies": { "@haelp/teto": "^3.1.2", "d3": "^7.9.0", "d3-sankey": "^0.12.3", "gaussian-mixture": "^0.9.1" } }, "sha512-PAepu8g2qjIYlLII42lPUhxZT38HjoV/O8TTQTvtY1bmc8iUGupN7jd7jXVXhpeHmzLFI5lJzvBJOFz/EInljg=="],
+    "minomuncher-core": ["minomuncher-core@0.0.4", "", { "dependencies": { "@haelp/teto": "^3.1.2", "d3": "^7.9.0", "d3-sankey": "^0.12.3", "gaussian-mixture": "^0.9.1" } }, "sha512-Y6VEz7dsd72O1kQ+64Cnik7OgHD8l0RMS3DUAg5+Zs6plS768dyAvXqr50INHHuCnKSWvZS5i/8cgAX24J4cfQ=="],
 
     "ms": ["ms@2.1.3", "", {}, "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="],
 

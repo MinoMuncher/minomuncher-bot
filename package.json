@@ -15,7 +15,7 @@
     "@resvg/resvg-js": "^2.6.2",
     "discord.js": "^14.19.3",
     "jsdom": "^26.1.0",
-    "minomuncher-core": "^0.0.1",
+    "minomuncher-core": "^0.0.4",
     "yargs": "^18.0.0"
   }
 }
