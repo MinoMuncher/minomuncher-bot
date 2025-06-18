@@ -45,7 +45,7 @@ export async function getLeagueReplayIds(discordID: string, usernames: string[],
 export async function getUserId(discordID: string, username: string) {
   let js: any = {}
   try {
-    const resp = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/user/${username}`, {
+    const resp = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/user/${username.toLowerCase()}`, {
       headers: { supporter: discordID }
     })
     js = await resp.json() as any

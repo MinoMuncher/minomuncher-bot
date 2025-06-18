@@ -54,7 +54,7 @@ export async function reply(message: Message, content: string[]) {
     if (argNames.length == 0 && message.attachments.size == 0) {
         let name: string
         try {
-            const res = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT || "") || 3000}/discord/${message.author.id}`
+            const res = await fetch(`http://localhost:${Number.parseInt(Bun.env.MINOMUNCHER_PORT ?? "") || 3000}/discord/${message.author.id}`
             ,{headers: {supporter: message.author.id}}
         ).then(x=>x.json())
             if (res.success && res.data.users.length > 0 && "username" in res.data.users[0]) {
