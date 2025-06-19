@@ -7,7 +7,7 @@
         "@resvg/resvg-js": "^2.6.2",
         "discord.js": "^14.19.3",
         "jsdom": "^26.1.0",
-        "minomuncher-core": "^0.0.4",
+        "minomuncher-core": "^0.0.5",
         "yargs": "^18.0.0",
       },
       "devDependencies": {
@@ -45,7 +45,7 @@
 
     "@discordjs/ws": ["@discordjs/ws@1.2.2", "", { "dependencies": { "@discordjs/collection": "^2.1.0", "@discordjs/rest": "^2.5.0", "@discordjs/util": "^1.1.0", "@sapphire/async-queue": "^1.5.2", "@types/ws": "^8.5.10", "@vladfrangu/async_event_emitter": "^2.2.4", "discord-api-types": "^0.38.1", "tslib": "^2.6.2", "ws": "^8.17.0" } }, ""],
 
-    "@haelp/teto": ["@haelp/teto@3.1.4", "", {}, "sha512-DKwYzFGTMSS3k1QNi2uFaOXqSJSeAn5B4WY476eJMTJ3MtKds0EN5K3XebVlAYs/sw5pgIwdaJN9+XEXmxLNug=="],
+    "@haelp/teto": ["@haelp/teto@3.1.5", "", {}, "sha512-pTK0ei7o3x1b9i/9qi1PDU5JrjHtC1RHHEOXHkaoOODcXm5RVtBeK3yMAFyu7UxGjp513GyUWnpiKru0uD0iZw=="],
 
     "@resvg/resvg-js": ["@resvg/resvg-js@2.6.2", "", { "optionalDependencies": { "@resvg/resvg-js-android-arm-eabi": "2.6.2", "@resvg/resvg-js-android-arm64": "2.6.2", "@resvg/resvg-js-darwin-arm64": "2.6.2", "@resvg/resvg-js-darwin-x64": "2.6.2", "@resvg/resvg-js-linux-arm-gnueabihf": "2.6.2", "@resvg/resvg-js-linux-arm64-gnu": "2.6.2", "@resvg/resvg-js-linux-arm64-musl": "2.6.2", "@resvg/resvg-js-linux-x64-gnu": "2.6.2", "@resvg/resvg-js-linux-x64-musl": "2.6.2", "@resvg/resvg-js-win32-arm64-msvc": "2.6.2", "@resvg/resvg-js-win32-ia32-msvc": "2.6.2", "@resvg/resvg-js-win32-x64-msvc": "2.6.2" } }, "sha512-xBaJish5OeGmniDj9cW5PRa/PtmuVU3ziqrbr5xJj901ZDN4TosrVaNZpEiLZAxdfnhAe7uQ7QFWfjPe9d9K2Q=="],
 
@@ -223,7 +223,7 @@
 
     "magic-bytes.js": ["magic-bytes.js@1.12.1", "", {}, ""],
 
-    "minomuncher-core": ["minomuncher-core@0.0.4", "", { "dependencies": { "@haelp/teto": "^3.1.2", "d3": "^7.9.0", "d3-sankey": "^0.12.3", "gaussian-mixture": "^0.9.1" } }, "sha512-Y6VEz7dsd72O1kQ+64Cnik7OgHD8l0RMS3DUAg5+Zs6plS768dyAvXqr50INHHuCnKSWvZS5i/8cgAX24J4cfQ=="],
+    "minomuncher-core": ["minomuncher-core@0.0.5", "", { "dependencies": { "@haelp/teto": "^3.1.5", "d3": "^7.9.0", "d3-sankey": "^0.12.3", "gaussian-mixture": "^0.9.1" } }, "sha512-RzgrSe9QpaGTgaQv+YWQ+Cg9dJCCWAnJtyJ57uBJ+yLyVyEv/d/vlsiJ/gbBpbVqOAZ+1r6W/rXerT42RcPc0Q=="],
 
     "ms": ["ms@2.1.3", "", {}, "sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA=="],
 
